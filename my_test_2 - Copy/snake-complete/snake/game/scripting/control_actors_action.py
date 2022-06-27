@@ -34,24 +34,28 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('a'):
             self._direction = Point(-constants.CELL_SIZE, 0)
             snake.grow_tail(1)
+            snake.turn_head(self._direction)
         
         # right
         if self._keyboard_service.is_key_down('d'):
             self._direction = Point(constants.CELL_SIZE, 0)
             snake.grow_tail(1)
+            snake.turn_head(self._direction)
         
         # up
         if self._keyboard_service.is_key_down('w'):
             self._direction = Point(0, -constants.CELL_SIZE)
             snake.grow_tail(1)
+            snake.turn_head(self._direction)
         
         # down
         if self._keyboard_service.is_key_down('s'):
             self._direction = Point(0, constants.CELL_SIZE)
             snake.grow_tail(1)
+            snake.turn_head(self._direction)
         
         snake = cast.get_first_actor("snakes")
-        snake.turn_head(self._direction)
+        
 
     def execute_two(self, cast, script):
         """Executes the control actors action.
@@ -65,21 +69,25 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('j'):
             self._direction = Point(-constants.CELL_SIZE, 0)
             snake.grow_tail_red(1)
+            snake.turn_head_red(self._direction)
         
         # right
         if self._keyboard_service.is_key_down('l'):
             self._direction = Point(constants.CELL_SIZE, 0)
             snake.grow_tail_red(1)
+            snake.turn_head_red(self._direction)
         
         # up
         if self._keyboard_service.is_key_down('i'):
             self._direction = Point(0, -constants.CELL_SIZE)
             snake.grow_tail_red(1)
+            snake.turn_head_red(self._direction)
         
         # down
         if self._keyboard_service.is_key_down('k'):
             self._direction = Point(0, constants.CELL_SIZE)
             snake.grow_tail_red(1)
+            snake.turn_head_red(self._direction)
         
         snake = cast.get_first_actor("snakes")
-        snake.turn_head_red(self._direction)
+        
