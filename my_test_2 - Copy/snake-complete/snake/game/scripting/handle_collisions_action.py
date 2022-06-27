@@ -28,6 +28,7 @@ class HandleCollisionsAction(Action):
         if not self._is_game_over:
             self._handle_food_collision(cast)
             self._handle_segment_collision(cast)
+            self._handle_cycle_colision(cast)
             self._handle_game_over(cast)
 
     def execute_two(self, cast, script):
@@ -40,6 +41,7 @@ class HandleCollisionsAction(Action):
         if not self._is_game_over:
             self._handle_food_collision(cast)
             self._handle_segment_collision(cast)
+            self._handle_cycle_colision(cast)
             self._handle_game_over(cast)
 
     def _handle_food_collision(self, cast):
@@ -86,6 +88,18 @@ class HandleCollisionsAction(Action):
         for segment in segments:
             if head.get_position().equals(segment.get_position()):
                 self._is_game_over = True
+
+    def _handle_cycle_colision(self, cast):
+        """Sets the game over flag if the cycles collide with the other cycle."""
+        snake = cast.get_first_actor("snakes")
+        head = snake.get_segments()[0]
+        segments = snake.get_segments()[1:]
+        snake2 = cast.get_first_actor("snakes")
+        head2 = snake2.get_segments_red()[0]
+        segments2 = snake2.get_segments_red()[1:]
+
+        if head.get_position().equals(head2.get_position()):
+            self._is_game_over = True
         
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns the snake and food white if the game is over.

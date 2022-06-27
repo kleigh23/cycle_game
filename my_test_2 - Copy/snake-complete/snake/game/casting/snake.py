@@ -93,7 +93,7 @@ class Snake(Actor):
     
     def _prepare_body_green(self):
         x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y - 450)
+        y = int(constants.MAX_Y - 300)
 
         for i in range(constants.SNAKE_LENGTH):
             position = Point(x - i * constants.CELL_SIZE, y)
@@ -110,7 +110,7 @@ class Snake(Actor):
 
     def _prepare_body_red(self):
         x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y / 6)
+        y = int(constants.MAX_Y + 300)
 
         for i in range(constants.SNAKE_LENGTH):
             position = Point(y - i * constants.CELL_SIZE, x)
