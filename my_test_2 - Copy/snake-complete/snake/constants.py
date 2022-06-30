@@ -6,7 +6,8 @@ ROWS = 20
 CELL_SIZE = 15
 MAX_X = 900
 MAX_Y = 600
-FRAME_RATE = 15
+#frame rate used to be 15, but that made the whole thing look like a rave!
+FRAME_RATE = 60
 FONT_SIZE = 15
 CAPTION = "Snake"
 SNAKE_LENGTH = 8
