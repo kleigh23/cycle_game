@@ -17,7 +17,8 @@ class Food(Actor):
         "Constructs a new Food."
         super().__init__()
         self._points = 0
-        self.set_text("@")
+        #the food was indicated with @, but I removed it so you cannot take it and grow bigger. The aim is to grow bigger by moving around!
+        self.set_text("")
         self.set_color(constants.RED)
         self.reset()
         
