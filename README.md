@@ -35,6 +35,6 @@ root                    (project root folder)
 
 ## Authors
 ---
-Kelley Robertson (creator of repository, figured out how to add the second player, master of red colored snakes!)
-Shanny López (Reviewed code and proposed solutions to errors, indifferent towards snakes)
-Cristian Avendaño (Fixed frame rate and other details, is scared of snakes...)
+* Kelley Robertson (creator of repository, figured out how to add the second player, master of red colored snakes!)
+* Shanny López (Reviewed code and proposed solutions to errors, indifferent towards snakes)
+* Cristian Avendaño (Fixed frame rate and other details, is scared of snakes...)
