@@ -18,7 +18,7 @@ class Food(Actor):
         super().__init__()
         self._points = 0
         #the food was indicated with @, but I removed it so you cannot take it and grow bigger. The aim is to grow bigger by moving around! Still leaving this in case we decide it would be a good idea to bring a food item into the game, it could work as extra difficulty.
-        self.set_text("")
+        self.set_text("@")
         self.set_color(constants.RED)
         self.reset()
         

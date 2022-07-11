@@ -1,4 +1,5 @@
 import constants
+from game.scripting.handle_collisions_action import HandleCollisionsAction
 from game.casting.actor import Actor
 from game.shared.point import Point
 
@@ -12,115 +13,115 @@ class Snake(Actor):
     Attributes:
         _points (int): The number of points the food is worth.
     """
-    def __init__(self):
+    def __init__(self, player_num):
         super().__init__()
-        self._segments_green = []
-        self._segments_red = []
-        self._prepare_body_red()
-        self._prepare_body_green()
+        self._segments = []
+        self.player = player_num
+        self._prepare_body()
         
-
     def get_segments(self):
-        return self._segments_green
-
-    def get_segments_red(self):
-        return self._segments_red 
-        
-
+        return self._segments
+    
     def move_next(self):
         # move all segments
-        for segment in self._segments_green:
+        for segment in self._segments:
             segment.move_next()
 
         # update velocities
-        for i in range(len(self._segments_green) - 1, 0, -1):
-            trailing = self._segments_green[i]
-            previous = self._segments_green[i - 1]
+        for i in range(len(self._segments) - 1, 0, -1):
+            trailing = self._segments[i]
+            previous = self._segments[i - 1]
             velocity = previous.get_velocity()
-            trailing.set_velocity(velocity)
-
-
-    def move_next_red(self):
-        for segment in self._segments_red:
-            segment.move_next_red() 
-
-        for i in range(len(self._segments_red) - 1, 0, -1):
-            trailing = self._segments_red[i]
-            previous = self._segments_red[i - 1]
-            velocity = previous.get_velocity()
-            trailing.set_velocity(velocity)       
+            trailing.set_velocity(velocity)    
 
     def get_head(self):
-        return self._segments_green[0] 
+        return self._segments[0] 
     
-    def get_head_red(self):
-        return self._segments_red[0]
-
     def grow_tail(self, number_of_segments):
+        handle = HandleCollisionsAction()
+        if not handle._is_game_over:
+            for i in range(number_of_segments):
+                tail = self._segments[-1]
+                velocity = tail.get_velocity()
+                offset = velocity.reverse()
+                position = tail.get_position().add(offset)
+
+                segment = Actor()
+                segment.set_position(position)
+                segment.set_velocity(velocity)
+                segment.set_text("#")
+                self._segments.append(segment)
+                if self.player == 1:
+                    segment.set_color(constants.GREEN)
+                else:
+                    segment.set_color(constants.RED)
+        elif handle._is_game_over:
+            for i in range(number_of_segments):
+                tail = self._segments[-1]
+                velocity = tail.get_velocity()
+                offset = velocity.reverse()
+                position = tail.get_position().add(offset)
+
+                segment = Actor()
+                segment.set_position(position)
+                segment.set_velocity(velocity)
+                segment.set_text("#")
+                self._segments.append(segment)
+                if self.player == 1:
+                    segment.set_color(constants.WHITE)
+                else:
+                    segment.set_color(constants.WHITE)
+
+    def grow_tail2(self, number_of_segments):
         for i in range(number_of_segments):
-            tail = self._segments_green[-1]
+            tail = self._segments[-1]
             velocity = tail.get_velocity()
             offset = velocity.reverse()
             position = tail.get_position().add(offset)
-            
+
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)
             segment.set_text("#")
-            segment.set_color(constants.GREEN)
-            self._segments_green.append(segment)
-
-    def grow_tail_red(self, number_of_segments):
-        for i in range(number_of_segments):
-            tail = self._segments_red[-1]
-            velocity = tail.get_velocity()
-            offset = velocity.reverse()
-            position = tail.get_position().add(offset)
+            self._segments.append(segment)
+            if self.player == 1:
+                segment.set_color(constants.WHITE)
+            else:
+                segment.set_color(constants.WHITE) 
             
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text("#")
-            segment.set_color(constants.RED)
-            self._segments_red.append(segment)
-
     def turn_head(self, velocity):
-        self._segments_green[0].set_velocity(velocity)
-        
-
-    def turn_head_red(self, velocity):
-        self._segments_red[0].set_velocity(velocity)
+        self._segments[0].set_velocity(velocity)
     
-    def _prepare_body_green(self):
-        x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y - 300)
+    def _prepare_body(self):
+        if self.player == 1:
+            x = 300
+            y = int(constants.MAX_Y / 2)
 
-        for i in range(constants.SNAKE_LENGTH):
-            position = Point(x - i * constants.CELL_SIZE, y)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
-            text = "@" if i == 0 else "#"
-            color = constants.GREEN
-            
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text(text)
-            segment.set_color(color)
-            self._segments_green.append(segment)
+            for i in range(constants.SNAKE_LENGTH):
+                position = Point(x, y + i * constants.CELL_SIZE)
+                velocity = Point(0, 1 * -constants.CELL_SIZE)
+                text = "8" if i == 0 else "#"
+                color = constants.GREEN
 
-    def _prepare_body_red(self):
-        x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y + 300)
+                segment = Actor()
+                segment.set_position(position)
+                segment.set_velocity(velocity)
+                segment.set_text(text)
+                segment.set_color(color)
+                self._segments.append(segment)
+        else:
+            x = 600
+            y = int(constants.MAX_Y / 2)
 
-        for i in range(constants.SNAKE_LENGTH):
-            position = Point(y - i * constants.CELL_SIZE, x)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
-            text = "@" if i == 0 else "#"
-            color = constants.RED
-            
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text(text)
-            segment.set_color(color)
-            self._segments_red.append(segment)
+            for i in range(constants.SNAKE_LENGTH):
+                position = Point(x, y + i * constants.CELL_SIZE)
+                velocity = Point(0, 1 * -constants.CELL_SIZE)
+                text = "8" if i == 0 else "#"
+                color = constants.RED
+
+                segment = Actor()
+                segment.set_position(position)
+                segment.set_velocity(velocity)
+                segment.set_text(text)
+                segment.set_color(color)
+                self._segments.append(segment)

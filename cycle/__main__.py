@@ -11,8 +11,7 @@ from game.scripting.draw_actors_action import DrawActorsAction
 from game.directing.director import Director
 from game.services.keyboard_service import KeyboardService
 from game.services.video_service import VideoService
-from game.shared.color import Color
-from game.shared.point import Point
+from game.scripting.timed_actions import TimedActions
 
 
 def main():
@@ -20,8 +19,10 @@ def main():
     # create the cast
     cast = Cast()
     cast.add_actor("foods", Food())
-    cast.add_actor("snakes", Snake())
-    cast.add_actor("scores", Score())
+    cast.add_actor("snakes", Snake(1))
+    cast.add_actor("snakes", Snake(2))
+    cast.add_actor("scores", Score(1))
+    cast.add_actor("scores", Score(2))
    
     # start the game
     keyboard_service = KeyboardService()
@@ -29,8 +30,10 @@ def main():
 
     script = Script()
     script.add_action("input", ControlActorsAction(keyboard_service))
+    script.add_action("input", ControlActorsAction(keyboard_service))
     script.add_action("update", MoveActorsAction())
     script.add_action("update", HandleCollisionsAction())
+    script.add_action("timed_update", TimedActions())
     script.add_action("output", DrawActorsAction(video_service))
     
     director = Director(video_service)
