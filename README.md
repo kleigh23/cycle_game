@@ -36,5 +36,5 @@ root                    (project root folder)
 ## Authors
 ---
 * Kelley Robertson (creator of repository, figured out how to add the second player, master of red colored snakes!)
-* Shanny López (Made the snakes grows over time)
+* Shanny López (Made the snakes grows over time, added food so the score increase if one snake hits it)
 * Cristian Avendaño (Fixed frame rate and other details, is scared of snakes...)
