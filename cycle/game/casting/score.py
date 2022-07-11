@@ -20,7 +20,7 @@ class Score(Actor):
         self._points = 0
         self.add_points(0)
         if num == 2:
-            self.position = Point(760, 0)
+            self.position = Point(1060, 0)
 
     def set_player_num(self,num):
         '''Sets the player's number
@@ -37,7 +37,7 @@ class Score(Actor):
             points (int): The points to add.
         """
         self._points += points
-        self.set_text(f"Player {self.player_num} Score: {self._points}")
+        self.set_text(f"Player {self.player_num}: {self._points}")
 
     def get_points(self):
         """ Returns the current number of points of said player """
