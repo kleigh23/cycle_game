@@ -19,3 +19,12 @@ class MoveActorsAction(Action):
         actors = cast.get_all_actors()
         for actor in actors:
             actor.move_next()
+
+        snakes = cast.get_first_actor()
+        snakes2 = cast.get_second_actor()
+        for snake in snakes:
+            snake.move_next()
+            snake.grow_tail(1)
+        for snake2 in snakes2:
+            snake2.move_next()
+            snake2.grow_tail(1)
